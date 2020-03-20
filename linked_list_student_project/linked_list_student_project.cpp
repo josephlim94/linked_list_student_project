@@ -183,7 +183,26 @@ int main()
 
     command_map.insert(command_map_t::value_type("FINDLARGEST", [](StudentList& student_list, std::ifstream& parseFile, std::stringstream& s) {
         std::string line;
-        std::cout << "Will run FINDLARGEST command.\n";
+        double largest_GPA = 0;
+        Student *student_with_largest_gpa = nullptr;
+        Student* student_node = student_list.head;
+        while (student_node != nullptr)
+        {
+            if (student_node->GPA > largest_GPA)
+            {
+                student_with_largest_gpa = student_node;
+                largest_GPA = student_node->GPA;
+            }
+            student_node = student_node->next;
+        }
+
+        if (student_with_largest_gpa != nullptr)
+        {
+            std::cout << "Student with the largest GPA is:" << std::endl;
+            std::cout << "Student name=" << student_with_largest_gpa->name << std::endl;
+            std::cout << "Student ID=" << student_with_largest_gpa->ID << std::endl;
+            std::cout << "Student GPA=" << student_with_largest_gpa->GPA << std::endl;
+        }
         return true;
         }));
 
